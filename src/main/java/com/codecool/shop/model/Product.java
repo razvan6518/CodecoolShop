@@ -18,6 +18,8 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+
+
     public BigDecimal getDefaultPrice() {
         return defaultPrice;
     }

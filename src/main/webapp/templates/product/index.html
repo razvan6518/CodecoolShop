@@ -36,8 +36,8 @@
 </div>
 
 <div class="card">
-    <select th:field="categories">
-        <option th:each="cat,iterStat : ${categories}" th:value="${cat.name}" th:text="${cat.name}">
+    <select id="categories" th:field="categories">
+        <option th:each="cat,iterStat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">
         </option>
     </select>
 </div>
