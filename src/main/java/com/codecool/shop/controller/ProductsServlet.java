@@ -28,8 +28,7 @@ public class ProductsServlet extends HttpServlet {
 
         ProductDao productDao = ProductDaoMem.getInstance();
         ProductCategoryDao categoryDao = ProductCategoryDaoMem.getInstance();
-        List<Product> productsList = productDao.getBy(categoryDao.find(2));
-//        List<Product> productsList = productDao.getBy(categoryDao.find(Integer.parseInt(request.getParameter("categoryId"))));
+        List<Product> productsList = productDao.getBy(categoryDao.find(Integer.parseInt(request.getParameter("categoryId"))));
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();
         PrintWriter out = response.getWriter();

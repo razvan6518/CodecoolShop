@@ -40,8 +40,6 @@ public class ProductController extends HttpServlet {
         List<Object> products = new ArrayList<>();
         productCategoryDataStore.getAll().forEach(productCategory -> products.addAll(productService.getProductsForCategory(productCategory.getId())));
 
-//        context.setVariable("products", productService.getProductsForCategory(1));
-
         context.setVariable("products", products);
 
         engine.process("product/index.html", context, resp.getWriter());

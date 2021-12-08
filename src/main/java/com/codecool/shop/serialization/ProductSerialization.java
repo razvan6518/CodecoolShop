@@ -31,6 +31,7 @@ public class ProductSerialization implements JsonSerializer<Product>, JsonDeseri
     public JsonElement serialize(Product product, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject result = new JsonObject();
         result.addProperty("name", product.getName());
+        result.addProperty("id", product.getId());
         result.addProperty("defaultPrice", product.getDefaultPrice());
         result.addProperty("currencyString", product.getDefaultCurrency().getSymbol());
         result.addProperty("description", product.getDescription());
