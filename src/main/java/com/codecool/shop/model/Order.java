@@ -3,11 +3,15 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
 
-    private HashMap<Product, Integer> productsInCart;
-    private int id;
+//    private HashMap<Product, Integer> productsInCart;
+//    private int id;
+
+    private List<LineItem> items;
+
     private static Order instance = null;
 
     public static Order getInstance(){
@@ -17,19 +21,21 @@ public class Order {
     }
 
     private Order() {
-        productsInCart = new HashMap<>();
+//        productsInCart = new HashMap<>();
+        items = new ArrayList<>();
     }
 
     public void addProduct(Product product){
-        if (this.productsInCart.containsKey(product)){
-            int count = this.productsInCart.get(product);
-            this.productsInCart.put(product, count+1);
+        if (this.items.stream().anyMatch(lineItem -> lineItem.getItem().name.equals(product.getName()))){
+            this.items.stream().filter(lineItem -> lineItem.getItem().name.equals(product.getName())).collect(Collectors.toList()).get(0).addQuantity(1);
         } else {
-            this.productsInCart.put(product, 1);
+            items.add(new LineItem(product));
         }
     }
 
-    public HashMap<Product, Integer> getProductsInCart() {
-        return productsInCart;
+    public List<LineItem> getProductsInCart() {
+        return items;
     }
+
 }
+

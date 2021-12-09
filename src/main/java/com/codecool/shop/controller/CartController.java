@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Order order = Order.getInstance();
-        HashMap<Product, Integer> products = order.getProductsInCart();
+        List<Object> products = Collections.singletonList(order.getProductsInCart());
 
         context.setVariable("products", products);
 
