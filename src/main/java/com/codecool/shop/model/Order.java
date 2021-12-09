@@ -22,4 +22,8 @@ public class Order {
     public void addProduct(Product product){
         this.productsInCart.add(product);
     }
+
+    public List<Product> getProductsInCart() {
+        return productsInCart;
+    }
 }
