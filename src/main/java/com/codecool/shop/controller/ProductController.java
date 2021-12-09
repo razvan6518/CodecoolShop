@@ -2,8 +2,10 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -26,6 +28,7 @@ public class ProductController extends HttpServlet {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDao supplierDao = SupplierDaoMem.getInstance();
 
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore);
 
@@ -36,6 +39,9 @@ public class ProductController extends HttpServlet {
 
         List<Object> categories = new ArrayList<>(productCategoryDataStore.getAll());
         context.setVariable("categories", categories);
+
+        List<Object> suppliers = new ArrayList<>(supplierDao.getAll());
+        context.setVariable("suppliers", suppliers);
 
         List<Object> products = new ArrayList<>();
         productCategoryDataStore.getAll().forEach(productCategory -> products.addAll(productService.getProductsForCategory(productCategory.getId())));

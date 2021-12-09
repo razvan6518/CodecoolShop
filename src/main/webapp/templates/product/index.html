@@ -42,6 +42,13 @@
     </select>
 </div>
 
+<div class="card">
+    <select id="suppliers" th:field="suppliers">
+        <option th:each="sup,iterStat : ${suppliers}" th:value="${sup.id}" th:text="${sup.name}">
+        </option>
+    </select>
+</div>
+
 <div class="container">
     <div class="card">
         <strong th:text="${category.name}">Category Title</strong>
