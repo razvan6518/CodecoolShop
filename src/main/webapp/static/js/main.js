@@ -4,15 +4,15 @@ const suppliers = document.querySelector("#suppliers");
 
 for (let i=0; i<categories.children.length; i++){
     categories.children[i].addEventListener("click", async evt => {
-        const values = await getValues(categories.children[i].value, "products");
-        await addCards(values);
+        const values = await getValues(categories.children[i].getAttribute("value"), "products");
+        await addCards(values, categories.children[i].innerText);
     })
 }
 
 for (let i=0; i<suppliers.children.length; i++){
     suppliers.children[i].addEventListener("click", async evt => {
-        const values = await getValues(suppliers.children[i].value, "suppliers");
-        await addCards(values);
+        const values = await getValues(suppliers.children[i].getAttribute("value"), "suppliers");
+        await addCards(values, suppliers.children[i].innerText);
     })
 }
 
@@ -22,7 +22,8 @@ async function getValues(id, endpoint) {
     return values;
 }
 
-async function addCards(values) {
+async function addCards(values, title) {
+    document.querySelector("#title").innerHTML = `<strong>${title}</strong>`;
     content.innerHTML = "";
     values.forEach(value => {
         content.appendChild(createCard(value));
