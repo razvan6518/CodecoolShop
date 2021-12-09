@@ -22,7 +22,7 @@ public class Order {
 
     public void addProduct(Product product){
         if (this.items.stream().anyMatch(lineItem -> lineItem.getItem().name.equals(product.getName()))){
-            this.items.stream().filter(lineItem -> lineItem.getItem().name.equals(product.getName())).collect(Collectors.toList()).get(0).setQuantity(1);
+            this.items.stream().filter(lineItem -> lineItem.getItem().name.equals(product.getName())).collect(Collectors.toList()).get(0).addQuantity(1);
         } else {
             items.add(new LineItem(product));
         }
