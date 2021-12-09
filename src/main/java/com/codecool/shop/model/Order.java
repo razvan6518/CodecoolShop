@@ -29,7 +29,11 @@ public class Order {
     }
 
     public void setProductQuantity(Product product, int quantity){
-        items.stream().filter(lineItem -> lineItem.getItem().getName().equals(product.getName())).collect(Collectors.toList()).get(0).setQuantity(quantity);
+        if (quantity == 0) {
+            items.remove(items.indexOf(items.stream().filter(lineItem -> lineItem.getItem().getName().equals(product.getName())).collect(Collectors.toList()).get(0)));
+        } else {
+            items.stream().filter(lineItem -> lineItem.getItem().getName().equals(product.getName())).collect(Collectors.toList()).get(0).setQuantity(quantity);
+        }
     }
 
     public List<LineItem> getProductsInCart() {
