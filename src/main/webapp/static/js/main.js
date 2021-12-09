@@ -44,7 +44,7 @@ function createCard(prod){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <a class="btn btn-success" href="/add?id=${prod['id']}">Add to cart</a>
                     </div>
                 </div>
             </div>`;
