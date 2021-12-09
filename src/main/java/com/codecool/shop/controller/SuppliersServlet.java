@@ -2,8 +2,10 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.serialization.ProductSerialization;
 import com.google.gson.Gson;
@@ -18,8 +20,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ProductsServlet", urlPatterns = {"/products"})
-public class ProductsServlet extends HttpServlet {
+@WebServlet(name = "SuppliersServlet", urlPatterns = {"/suppliers"})
+public class SuppliersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,8 +29,8 @@ public class ProductsServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategoryDao categoryDao = ProductCategoryDaoMem.getInstance();
-        List<Product> productsList = productDao.getBy(categoryDao.find(Integer.parseInt(request.getParameter("id"))));
+        SupplierDao supplierDao = SupplierDaoMem.getInstance();
+        List<Product> productsList = productDao.getBy(supplierDao.find(Integer.parseInt(request.getParameter("id"))));
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();
         PrintWriter out = response.getWriter();

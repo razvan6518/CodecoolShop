@@ -1,15 +1,23 @@
 let content = document.querySelector("#products");
 const categories = document.querySelector("#categories");
+const suppliers = document.querySelector("#suppliers");
+
 for (let i=0; i<categories.children.length; i++){
     categories.children[i].addEventListener("click", async evt => {
-        // console.log(categories.children[i].value);
-        const values = await getValues(categories.children[i].value);
+        const values = await getValues(categories.children[i].value, "products");
         await addCards(values);
     })
 }
 
-async function getValues(id) {
-    const response = await fetch("/products" + "?categoryId=" + id);
+for (let i=0; i<suppliers.children.length; i++){
+    suppliers.children[i].addEventListener("click", async evt => {
+        const values = await getValues(suppliers.children[i].value, "suppliers");
+        await addCards(values);
+    })
+}
+
+async function getValues(id, endpoint) {
+    const response = await fetch("/" + endpoint + "?id=" + id);
     const values = await response.json();
     return values;
 }
