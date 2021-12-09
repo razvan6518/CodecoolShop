@@ -1,11 +1,12 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order {
 
-    private List<Product> productsInCart;
+    private HashMap<Product, Integer> productsInCart;
     private int id;
     private static Order instance = null;
 
@@ -16,14 +17,19 @@ public class Order {
     }
 
     private Order() {
-        productsInCart = new ArrayList<>();
+        productsInCart = new HashMap<>();
     }
 
     public void addProduct(Product product){
-        this.productsInCart.add(product);
+        if (this.productsInCart.containsKey(product)){
+            int count = this.productsInCart.get(product);
+            this.productsInCart.put(product, count+1);
+        } else {
+            this.productsInCart.put(product, 1);
+        }
     }
 
-    public List<Product> getProductsInCart() {
+    public HashMap<Product, Integer> getProductsInCart() {
         return productsInCart;
     }
 }

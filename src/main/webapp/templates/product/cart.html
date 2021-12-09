@@ -36,8 +36,8 @@
     </div>
 
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
+        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="element : ${products}">
+            <div class="card" th:each="prod : ${element.key}">
                 <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
@@ -48,7 +48,10 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <strong></strong>quantity</strong>
+                        <input class="form-control"
+                               type="text"
+                               th:value="${element.value}" name="clientName" />
                     </div>
                 </div>
             </div>
