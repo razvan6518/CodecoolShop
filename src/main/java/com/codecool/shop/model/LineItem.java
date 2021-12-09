@@ -13,7 +13,7 @@ public class LineItem {
         return item;
     }
 
-    public void addQuantity(int quantity) {
-        this.quantity += quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
