@@ -25,7 +25,7 @@ public class CartChange extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         Order order = Order.getInstance();
         order.setProductQuantity(product, quantity);
-        response.sendRedirect("http://localhost:8080/cart");
+        response.sendRedirect("http://localhost:8888/cart");
     }
 
 }
