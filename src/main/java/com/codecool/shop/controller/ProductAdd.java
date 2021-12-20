@@ -24,7 +24,7 @@ public class ProductAdd extends HttpServlet {
         Product toBuy = productDao.find(Integer.parseInt(request.getParameter("id")));
         Order order = Order.getInstance();
         order.addProduct(toBuy);
-        response.sendRedirect("http://localhost:8080");
+        response.sendRedirect("http://localhost:8888");
     }
 
 }

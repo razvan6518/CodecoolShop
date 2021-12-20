@@ -41,7 +41,6 @@ function createCard(prod, quantity){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                        <a href="/change_cart?id=${prod['id']}&quantity=6">aaaaa</a>
                         <form action="/change_cart" method="get">
                             <label for="quantity">quantity</label>
                             <input type="hidden" id="custId" name="id" value="${prod['id']}">
