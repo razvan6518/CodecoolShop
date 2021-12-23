@@ -17,3 +17,10 @@ CREATE TABLE IF NOT EXISTS suppliers (
                                          department varchar,
                                          products JSON
 );
+
+CREATE TABLE IF NOT EXISTS users (
+                                         id serial PRIMARY KEY,
+                                         name varchar,
+                                         email varchar,
+                                         password varchar
+);
