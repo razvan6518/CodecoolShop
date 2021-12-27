@@ -83,16 +83,34 @@ async function getSuppliers() {
     return values;
 }
 
+async function getFilteredProducts(filterBy) {
+    const response = await fetch("/filter_products?by="+filterBy);
+    const values = await response.json();
+    return values;
+}
+
 async function makeFilter(){
     const categories = await getCategories();
+    const suppliers = await getSuppliers();
     categories.forEach(category => {
-        // console.log(category);
         document.querySelector("#categoryFilter").innerHTML +=
-            `<input type="checkbox" id="categoryId${category['id']}" name="${category['name']}" value="${category['name']}" oninput="updatePage()">
+            `<input type="checkbox" id="category_${category['id']}" name="category" value="${category['id']}" oninput="updatePage()">
              <label for="${category['name']}">${category['name']}</label><br>`;
+    })
+    suppliers.forEach(supplier => {
+        document.querySelector("#categoryFilter").innerHTML +=
+            `<input type="checkbox" id="supplier_${supplier['id']}" name="supplier" value="${supplier['id']}" oninput="updatePage()">
+             <label for="${supplier['name']}">${supplier['name']}</label><br>`;
     })
 }
 
-function updatePage(){
-    console.log("changed");
+async function updatePage(){
+    let filters = "";
+    let checkBoxes = document.querySelectorAll("#categoryFilter input");
+    checkBoxes.forEach(checkBox => {
+        if (checkBox.checked)
+            filters += checkBox.id+","
+    })
+    const filteredValues = await getFilteredProducts(filters.substr(0, filters.length-1));
+    await addCards(filteredValues, "Filtered");
 }
