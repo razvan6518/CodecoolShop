@@ -49,11 +49,18 @@ function createCard(prod){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="/add?id=${prod['id']}">Add to cart</a>
+                    <button class="btn btn-success" type="button" onclick="addToCart(${prod['id']})">Request data</button>
                     </div>
                 </div>
             </div>`;
     return card;
+}
+
+function addToCart(id) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `/add?id=${id}`);
+    xhttp.setRequestHeader("Content-type", "");
+    xhttp.send();
 }
 
 const leftFilters = document.querySelector("#leftMenuBody");
