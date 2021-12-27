@@ -19,10 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "ProductsServlet", urlPatterns = {"/filter_products"})
 public class FilterProductsServlet extends HttpServlet {
@@ -36,7 +39,7 @@ public class FilterProductsServlet extends HttpServlet {
         SupplierDao supplierDao = SupplierDaoMem.getInstance();
 
         ProductService productService = new ProductService(productDao, categoryDao, supplierDao);
-
+        int maxPrice;
         Set<Product> productsList;
         if (!request.getParameter("by").equals("")){
             productsList = new HashSet<>();
@@ -49,8 +52,12 @@ public class FilterProductsServlet extends HttpServlet {
                     productsList.addAll(productService.getProductsForSupplier(Integer.parseInt(filter.split("_")[1])));
                 }
             }
+            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
         }else{
             productsList = new HashSet<>(productService.getAllProducts());
+            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
         }
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();

@@ -1,26 +1,30 @@
 let content = document.querySelector("#products");
-const categories = document.querySelector("#categories");
-const suppliers = document.querySelector("#suppliers");
+// const categories = document.querySelector("#categories");
+// const suppliers = document.querySelector("#suppliers");
 
-for (let i=0; i<categories.children.length; i++){
-    categories.children[i].addEventListener("click", async evt => {
-        const values = await getValues(categories.children[i].getAttribute("value"), "products");
-        await addCards(values, categories.children[i].innerText);
-    })
-}
+// for (let i=0; i<categories.children.length; i++){
+//     categories.children[i].addEventListener("click", async evt => {
+//         const values = await getValues(categories.children[i].getAttribute("value"), "products");
+//         await addCards(values, categories.children[i].innerText);
+//     })
+// }
+//
+// for (let i=0; i<suppliers.children.length; i++){
+//     suppliers.children[i].addEventListener("click", async evt => {
+//         const values = await getValues(suppliers.children[i].getAttribute("value"), "suppliers");
+//         await addCards(values, suppliers.children[i].innerText);
+//     })
+// }
 
-for (let i=0; i<suppliers.children.length; i++){
-    suppliers.children[i].addEventListener("click", async evt => {
-        const values = await getValues(suppliers.children[i].getAttribute("value"), "suppliers");
-        await addCards(values, suppliers.children[i].innerText);
-    })
-}
+// async function getValues(id, endpoint) {
+//     const response = await fetch("/" + endpoint + "?id=" + id);
+//     const values = await response.json();
+//     return values;
+// }
 
-async function getValues(id, endpoint) {
-    const response = await fetch("/" + endpoint + "?id=" + id);
-    const values = await response.json();
-    return values;
-}
+
+makeFilter();
+
 
 async function addCards(values, title) {
     document.querySelector("#title").innerHTML = `<strong>${title}</strong>`;
@@ -52,24 +56,8 @@ function createCard(prod){
     return card;
 }
 
-function openLeftMenu() {
-    document.getElementById("leftMenu").style.display = "block";
-}
-function closeLeftMenu() {
-    document.getElementById("leftMenu").style.display = "none";
-}
-function openRightMenu() {
-    document.getElementById("rightMenu").style.display = "block";
-}
-
-function closeRightMenu() {
-    document.getElementById("rightMenu").style.display = "none";
-}
-
-const leftFilters = document.querySelector("#leftMenu");
+const leftFilters = document.querySelector("#leftMenuBody");
 leftFilters.innerHTML += `<div id="categoryFilter"></div>`;
-
-makeFilter();
 
 async function getCategories() {
     const response = await fetch("/categories");
@@ -92,16 +80,23 @@ async function getFilteredProducts(filterBy) {
 async function makeFilter(){
     const categories = await getCategories();
     const suppliers = await getSuppliers();
+    let categoryFilter = document.querySelector("#categoryFilter");
+    console.log(categoryFilter);
+    categoryFilter.innerHTML += `<div id="categoryFilters"><h3><u>Categories:</u></h3></div>`
     categories.forEach(category => {
-        document.querySelector("#categoryFilter").innerHTML +=
+        document.querySelector("#categoryFilters").innerHTML +=
             `<input type="checkbox" id="category_${category['id']}" name="category" value="${category['id']}" oninput="updatePage()">
              <label for="${category['name']}">${category['name']}</label><br>`;
     })
+    categoryFilter.innerHTML += `<div id="supplierFilters"><h3><u>Suppliers:</u></h3></div>`
     suppliers.forEach(supplier => {
-        document.querySelector("#categoryFilter").innerHTML +=
+        document.querySelector("#supplierFilters").innerHTML +=
             `<input type="checkbox" id="supplier_${supplier['id']}" name="supplier" value="${supplier['id']}" oninput="updatePage()">
              <label for="${supplier['name']}">${supplier['name']}</label><br>`;
     })
+    categoryFilter.innerHTML += `<div id="priceFilters"><h3><u>Max price: <b id="priceMax"></b></u></h3></div>`
+    document.querySelector("#priceFilters").innerHTML += `
+        <input type="range" name="price-max" id="price-max" value="1000" min="0" max="1000" onchange="updatePage()" oninput="updateSelectedMaxPrice()">`;
 }
 
 async function updatePage(){
@@ -111,6 +106,52 @@ async function updatePage(){
         if (checkBox.checked)
             filters += checkBox.id+","
     })
-    const filteredValues = await getFilteredProducts(filters.substr(0, filters.length-1));
+    let maxPrice = document.querySelector("#price-max").value;
+    document.querySelector("#priceMax").innerHTML = maxPrice;
+    filters = filters.substr(0, filters.length-1) + "&maxPrice=" + maxPrice;
+    const filteredValues = await getFilteredProducts(filters);
     await addCards(filteredValues, "Filtered");
+}
+
+function updateSelectedMaxPrice(){
+    let maxPrice = document.querySelector("#price-max").value;
+    document.querySelector("#priceMax").innerHTML = maxPrice;
+}
+
+function openLeftMenu() {
+    document.getElementById("leftMenu").style.display = "block";
+}
+function closeLeftMenu() {
+    document.getElementById("leftMenu").style.display = "none";
+}
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+
+function closeRightMenu() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+
+function w3_open() {
+    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("leftMenu").style.width = "15%";
+    document.getElementById("leftMenu").style.display = "block";
+    // document.getElementById("openFilterMenu").style.display = 'none';
+}
+function w3_close() {
+    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("leftMenu").style.display = "none";
+    // document.getElementById("openFilterMenu").style.display = "inline-block";
+}
+
+function w2_open() {
+    document.getElementById("main").style.marginRight = "15%";
+    document.getElementById("rightMenu").style.width = "15%";
+    document.getElementById("rightMenu").style.display = "block";
+    document.getElementById("openCartMenu").style.display = 'none';
+}
+function w2_close() {
+    document.getElementById("main").style.marginRight = "0%";
+    document.getElementById("rightMenu").style.display = "none";
+    document.getElementById("openCartMenu").style.display = "inline-block";
 }
