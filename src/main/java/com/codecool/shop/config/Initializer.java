@@ -6,21 +6,15 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Category;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.placeholder.DbConnection;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.util.Properties;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -43,11 +37,11 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(samsung);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        Category tablet = new Category("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
-        ProductCategory phones = new ProductCategory("Phones", "Hardware", "phone description");
+        Category phones = new Category("Phones", "Hardware", "phone description");
         productCategoryDataStore.add(phones);
-        ProductCategory headphones = new ProductCategory("Headphones", "Hardware", "Headphones description");
+        Category headphones = new Category("Headphones", "Hardware", "Headphones description");
         productCategoryDataStore.add(headphones);
 
         //setting up products and printing it

@@ -7,11 +7,11 @@ public class Product extends BaseModel {
 
     private BigDecimal defaultPrice;
     private Currency defaultCurrency;
-    private ProductCategory productCategory;
+    private Category productCategory;
     private Supplier supplier;
 
 
-    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
@@ -45,11 +45,11 @@ public class Product extends BaseModel {
         this.defaultCurrency = Currency.getInstance(currency);
     }
 
-    public ProductCategory getProductCategory() {
+    public Category getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(Category productCategory) {
         this.productCategory = productCategory;
         this.productCategory.addProduct(this);
     }

@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.service.CategoryService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/"})
-public class ProductController extends HttpServlet {
+public class AllProductsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,6 +48,9 @@ public class ProductController extends HttpServlet {
         productCategoryDataStore.getAll().forEach(productCategory -> products.addAll(productService.getProductsForCategory(productCategory.getId())));
 
         context.setVariable("products", products);
+
+        CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
+        categoryService.getAllCategoriesWithNrOfItems();
 
         engine.process("product/index.html", context, resp.getWriter());
     }
