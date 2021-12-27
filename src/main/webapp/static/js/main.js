@@ -67,5 +67,32 @@ function closeRightMenu() {
 }
 
 const leftFilters = document.querySelector("#leftMenu");
-console.log(leftFilters);
+leftFilters.innerHTML += `<div id="categoryFilter"></div>`;
 
+makeFilter();
+
+async function getCategories() {
+    const response = await fetch("/categories");
+    const values = await response.json();
+    return values;
+}
+
+async function getSuppliers() {
+    const response = await fetch("/suppliers");
+    const values = await response.json();
+    return values;
+}
+
+async function makeFilter(){
+    const categories = await getCategories();
+    categories.forEach(category => {
+        // console.log(category);
+        document.querySelector("#categoryFilter").innerHTML +=
+            `<input type="checkbox" id="categoryId${category['id']}" name="${category['name']}" value="${category['name']}" oninput="updatePage()">
+             <label for="${category['name']}">${category['name']}</label><br>`;
+    })
+}
+
+function updatePage(){
+    console.log("changed");
+}
