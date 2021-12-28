@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.service.CategoryService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -30,6 +31,7 @@ public class AllProductsController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDao = SupplierDaoMem.getInstance();
+        Order order = Order.getInstance();
 
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDao);
 
@@ -48,6 +50,7 @@ public class AllProductsController extends HttpServlet {
         productCategoryDataStore.getAll().forEach(productCategory -> products.addAll(productService.getProductsForCategory(productCategory.getId())));
 
         context.setVariable("products", products);
+        context.setVariable("productsInCart", order.getProductsInCart().size());
 
         CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
         categoryService.getAllCategoriesWithNrOfItems();

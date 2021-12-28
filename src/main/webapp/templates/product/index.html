@@ -45,11 +45,10 @@
 </div>
 
 <div id="main">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark header-nav" >
     <div>
         <button id="openFilterMenu" class="btn-dark btn-lg" onclick="w3_open()">&#9776;Filters</button>
     </div>
-
     <a class="navbar-brand" href="/"><h1>Codecool Shop</h1></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -77,8 +76,13 @@
         </ul>
     </div>
 <!--    <a class="navbar-brand" href="#" onclick="openRightMenu()">&#9776;Show Cart</a>-->
-    <div>
+
+<!--        <i class="fa" style="font-size:24px">*</i>-->
+<!--        <span> 5 </span>-->
+
+    <div class="wrapper">
         <button id="openCartMenu" class="btn-dark btn-lg" onclick="w2_open()">&#9776;Cart</button>
+        <span class='badge badge-warning' id='lblCartCount' th:style="${productsInCart>0 ? 'display:inline-block' : 'display:none'}" th:text=" ${productsInCart} "></span>
     </div>
 </nav>
 

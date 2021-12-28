@@ -57,6 +57,11 @@ function createCard(prod){
 }
 
 function addToCart(id) {
+    let itemsInCartCounter = document.querySelector("#lblCartCount");
+    console.log(itemsInCartCounter);
+    let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
+    document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
+    document.getElementById("lblCartCount").style.display = "inline-block";
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `/add?id=${id}`);
     xhttp.setRequestHeader("Content-type", "");
@@ -156,9 +161,11 @@ function w2_open() {
     document.getElementById("rightMenu").style.width = "15%";
     document.getElementById("rightMenu").style.display = "block";
     document.getElementById("openCartMenu").style.display = 'none';
+    document.getElementById("lblCartCount").style.display = 'none';
 }
 function w2_close() {
     document.getElementById("main").style.marginRight = "0%";
     document.getElementById("rightMenu").style.display = "none";
     document.getElementById("openCartMenu").style.display = "inline-block";
+    document.getElementById("lblCartCount").style.display = "inline-block";
 }
