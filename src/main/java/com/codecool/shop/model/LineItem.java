@@ -20,4 +20,8 @@ public class LineItem {
     public void addQuantity(int quantity) {
         this.quantity += quantity;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

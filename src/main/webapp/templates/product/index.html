@@ -82,7 +82,7 @@
 
     <div class="wrapper">
         <button id="openCartMenu" class="btn-dark btn-lg" onclick="w2_open()">&#9776;Cart</button>
-        <span class='badge badge-warning' id='lblCartCount' th:style="${productsInCart>0 ? 'display:inline-block' : 'display:none'}" th:text=" ${productsInCart} "></span>
+        <span class='count-items-anim badge badge-warning' id='lblCartCount' th:style="${productsInCart>0 ? 'display:inline-block' : 'display:none'}" th:text=" ${productsInCart} "></span>
     </div>
 </nav>
 

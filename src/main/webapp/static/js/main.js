@@ -62,6 +62,7 @@ function addToCart(id) {
     let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
     document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
     document.getElementById("lblCartCount").style.display = "inline-block";
+    start();
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `/add?id=${id}`);
     xhttp.setRequestHeader("Content-type", "");
@@ -130,20 +131,6 @@ function updateSelectedMaxPrice(){
     document.querySelector("#priceMax").innerHTML = maxPrice;
 }
 
-function openLeftMenu() {
-    document.getElementById("leftMenu").style.display = "block";
-}
-function closeLeftMenu() {
-    document.getElementById("leftMenu").style.display = "none";
-}
-function openRightMenu() {
-    document.getElementById("rightMenu").style.display = "block";
-}
-
-function closeRightMenu() {
-    document.getElementById("rightMenu").style.display = "none";
-}
-
 function w3_open() {
     document.getElementById("main").style.marginLeft = "15%";
     document.getElementById("leftMenu").style.width = "15%";
@@ -168,4 +155,12 @@ function w2_close() {
     document.getElementById("rightMenu").style.display = "none";
     document.getElementById("openCartMenu").style.display = "inline-block";
     document.getElementById("lblCartCount").style.display = "inline-block";
+}
+
+function start() {
+    document.getElementById('lblCartCount').classList.remove("count-items-anim");
+    document.getElementById('lblCartCount').offsetWidth;
+    document.getElementById('lblCartCount').classList.add("count-items-anim");
+    // document.getElementById('lblCartCount').style.animation = "addItemAnimation forward";
+    // document.getElementById('earthlogo').style.animation = "anim2 2s 2s forward";
 }

@@ -17,6 +17,7 @@
     padding: 0 5px;
     vertical-align: top;
     margin-left: -100px;
+    animation-duration: 250ms;
 }
 
 .header-nav {
@@ -25,6 +26,19 @@
     position: -webkit-sticky;
     position: sticky;
     top: -1px;
+}
+
+.count-items-anim {
+    animation-name: addItemAnimation;
+    animation-iteration-count: 2;
+}
+
+@keyframes addItemAnimation {
+    0% {font-size: 20px;}
+    25% {font-size: 22px;}
+    50% {font-size: 24px;}
+    75% {font-size: 22px;}
+    100% {font-size: 20px;}
 }
 
 .glyphicon {

@@ -50,7 +50,7 @@ public class AllProductsController extends HttpServlet {
         productCategoryDataStore.getAll().forEach(productCategory -> products.addAll(productService.getProductsForCategory(productCategory.getId())));
 
         context.setVariable("products", products);
-        context.setVariable("productsInCart", order.getProductsInCart().size());
+        context.setVariable("productsInCart", order.getNrOfProducts());
 
         CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
         categoryService.getAllCategoriesWithNrOfItems();

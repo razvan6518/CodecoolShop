@@ -40,5 +40,13 @@ public class Order {
         return items;
     }
 
+    public int getNrOfProducts(){
+        int count = 0;
+        for (LineItem item: this.items){
+            count += item.getQuantity();
+        }
+        return  count;
+    }
+
 }
 
