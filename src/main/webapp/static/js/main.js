@@ -39,7 +39,7 @@ function createCard(prod){
     card.className = "col col-sm-12 col-md-6 col-lg-4";
     card.innerHTML = `
             <div class="card">
-                <img class="" src="/static/img/product_${prod['id']}.jpg" alt="" />
+                <img class="" src="/static/img/product_${prod['id']}.jpg" alt="" width="200" height="200"/>
                 <div class="card-header">
                     <h4 class="card-title">${prod['name']}</h4>
                     <p class="card-text">${prod['description']}</p>
@@ -89,19 +89,19 @@ async function makeFilter(){
     const suppliers = await getSuppliers();
     let categoryFilter = document.querySelector("#categoryFilter");
     console.log(categoryFilter);
-    categoryFilter.innerHTML += `<div id="categoryFilters"><h3><u>Categories:</u></h3></div>`
+    categoryFilter.innerHTML += `<div id="categoryFilters" class="text-white"><h3>Categories:</h3></div>`
     categories.forEach(category => {
         document.querySelector("#categoryFilters").innerHTML +=
             `<input type="checkbox" id="category_${category['id']}" name="category" value="${category['id']}" oninput="updatePage()">
              <label for="${category['name']}">${category['name']}</label><br>`;
     })
-    categoryFilter.innerHTML += `<div id="supplierFilters"><h3><u>Suppliers:</u></h3></div>`
+    categoryFilter.innerHTML += `<div id="supplierFilters" class="text-white"><hr><h3>Suppliers:</h3></div>`
     suppliers.forEach(supplier => {
         document.querySelector("#supplierFilters").innerHTML +=
             `<input type="checkbox" id="supplier_${supplier['id']}" name="supplier" value="${supplier['id']}" oninput="updatePage()">
              <label for="${supplier['name']}">${supplier['name']}</label><br>`;
     })
-    categoryFilter.innerHTML += `<div id="priceFilters"><h3><u>Max price: <b id="priceMax"></b></u></h3></div>`
+    categoryFilter.innerHTML += `<div id="priceFilters" class="text-white"><hr><h3>Max price: <b id="priceMax"></b></h3></div>`
     document.querySelector("#priceFilters").innerHTML += `
         <input type="range" name="price-max" id="price-max" value="1000" min="0" max="1000" onchange="updatePage()" oninput="updateSelectedMaxPrice()">`;
 }

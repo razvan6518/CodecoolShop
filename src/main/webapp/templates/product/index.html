@@ -16,35 +16,41 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/sidebars.css" />
 
     <script type="text/javascript" th:src="@{/static/js/main.js}" defer></script>
+    <script type="text/javascript" th:src="@{/static/js/sidebars.js}" defer></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
 
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="leftMenu">
-    <div id="leftMenuBody"></div>
+<div class="text-white bg-dark w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="leftMenu">
+    <div id="leftMenuBody" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+        <h2 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">Filters</h2>
+        <hr>
+    </div>
     <button onclick="w3_close()" class="w3-bar-item w3-button w3-large">Close &times;</button>
 </div>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;" id="rightMenu">
-    <form action="/cart">
-        <input class="w3-bar-item w3-button w3-large" type="submit" value="Go to cart" />
-    </form>
+<div class="text-white bg-dark w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <div id="rightMenuBody" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+        <h2 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"><form action="/cart">
+            <input class="w3-bar-item w3-button w3-large" type="submit" value="Go to cart" />
+        </form></h2>
+        <hr>
+    </div>
     <button onclick="w2_close()" class="w3-bar-item w3-button w3-large">Close &times;</button>
 </div>
 
 <div id="main">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-<!--    <a class="navbar-brand" href="#" id="filtersButton" onclick="openLeftMenu()">&#9776;Filters</a>-->
-
-    <div class="w3-teal">
+    <div>
         <button id="openFilterMenu" class="btn-dark btn-lg" onclick="w3_open()">&#9776;Filters</button>
     </div>
 
-    <a class="navbar-brand" href="/">Codecool Shop</a>
+    <a class="navbar-brand" href="/"><h1>Codecool Shop</h1></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,7 +77,7 @@
         </ul>
     </div>
 <!--    <a class="navbar-brand" href="#" onclick="openRightMenu()">&#9776;Show Cart</a>-->
-    <div class="w3-teal">
+    <div>
         <button id="openCartMenu" class="btn-dark btn-lg" onclick="w2_open()">&#9776;Cart</button>
     </div>
 </nav>
@@ -84,7 +90,7 @@
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" width="200" height="200"/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
