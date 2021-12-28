@@ -58,7 +58,6 @@ function createCard(prod){
 
 function addToCart(id) {
     let itemsInCartCounter = document.querySelector("#lblCartCount");
-    console.log(itemsInCartCounter);
     let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
     document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
     document.getElementById("lblCartCount").style.display = "inline-block";

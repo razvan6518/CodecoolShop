@@ -31,7 +31,7 @@ function createCard(prod, quantity){
     card.className = "col col-sm-12 col-md-6 col-lg-4";
     card.innerHTML = `
             <div class="card">
-                <img class="" src="/static/img/product_${prod['id']}.jpg"/>
+                <img class="" src="/static/img/product_${prod['id']}.jpg" width="200" height="200"/>
                 <div class="card-header">
                     <h4 class="card-title">${prod['name']}</h4>
                     <p class="card-text">${prod['description']}</p>
@@ -41,15 +41,22 @@ function createCard(prod, quantity){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                        <form action="/change_cart" method="get">
                             <label for="quantity">quantity</label>
                             <input type="hidden" id="custId" name="id" value="${prod['id']}">
-                            <input name="quantity" class="form-control" type="text" value="${quantity}"/>
-                            <input type="submit" value="Change">
-                        </form>
+                            <input name="quantity" id="${prod['id']}" class="form-control" type="text" value="${quantity}" oninput="changeCart(${prod['id']})"/>
                         <strong>subtotal price: ${subtotal}</strong>
                     </div>
                 </div>
             </div>`;
     return card;
+}
+
+async function changeCart(id){
+    const changed = document.getElementById(id);
+    const xhttp = new XMLHttpRequest();
+    let newQuantity = changed.value;
+    xhttp.open("POST", `/change_cart?id=${id}&quantity=${newQuantity}`);
+    xhttp.setRequestHeader("Content-type", "");
+    xhttp.send();
+    start();
 }
