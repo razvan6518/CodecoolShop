@@ -49,7 +49,7 @@ function createCard(prod){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                    <button class="btn btn-success" type="button" onclick="addToCart(${prod['id']})">Request data</button>
+                    <button class="btn btn-success" type="button" onclick="addToCart(${prod['id']})">Add to cart</button>
                     </div>
                 </div>
             </div>`;
@@ -140,15 +140,15 @@ function closeRightMenu() {
 }
 
 function w3_open() {
-    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("main").style.marginLeft = "15%";
     document.getElementById("leftMenu").style.width = "15%";
     document.getElementById("leftMenu").style.display = "block";
-    // document.getElementById("openFilterMenu").style.display = 'none';
+    document.getElementById("openFilterMenu").style.display = 'none';
 }
 function w3_close() {
     document.getElementById("main").style.marginLeft = "0%";
     document.getElementById("leftMenu").style.display = "none";
-    // document.getElementById("openFilterMenu").style.display = "inline-block";
+    document.getElementById("openFilterMenu").style.display = "inline-block";
 }
 
 function w2_open() {

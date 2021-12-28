@@ -41,16 +41,29 @@ public class FilterProductsServlet extends HttpServlet {
         ProductService productService = new ProductService(productDao, categoryDao, supplierDao);
         int maxPrice;
         Set<Product> productsList;
+        boolean categoryFilter = false;
+        boolean supplierFilter = false;
         if (!request.getParameter("by").equals("")){
             productsList = new HashSet<>();
             String[] filters = request.getParameter("by").split(",");
             for (String filter: filters){
                 if (filter.split("_")[0].equals("category")){
+                    categoryFilter = true;
                     productsList.addAll(productService.getProductsForCategory(Integer.parseInt(filter.split("_")[1])));
                 }
+            }
+            if (!categoryFilter){
+                productsList = new HashSet<>(productService.getAllProducts());
+            }
+            Set<Product> productsFilteredBySuppliers = new HashSet<>();
+            for (String filter: filters){
                 if (filter.split("_")[0].equals("supplier")){
-                    productsList.addAll(productService.getProductsForSupplier(Integer.parseInt(filter.split("_")[1])));
+                    supplierFilter = true;
+                    productsFilteredBySuppliers.addAll(productsList.stream().filter(product -> product.getSupplier().getId() == Integer.parseInt(filter.split("_")[1])).collect(Collectors.toSet()));
                 }
+            }
+            if (supplierFilter){
+                productsList = productsFilteredBySuppliers;
             }
             maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
             productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
