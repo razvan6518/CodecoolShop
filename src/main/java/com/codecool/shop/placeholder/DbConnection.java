@@ -34,17 +34,6 @@ public class DbConnection {
                     myConn = DriverManager
                             .getConnection(url, user, password);
                     System.out.println("Opened database successfully");
-
-//                    stmt = myConn.createStatement();
-//                    String sql = "CREATE TABLE COMPANY " +
-//                            "(ID INT PRIMARY KEY     NOT NULL," +
-//                            " NAME           TEXT    NOT NULL, " +
-//                            " AGE            INT     NOT NULL, " +
-//                            " ADDRESS        CHAR(50), " +
-//                            " SALARY         REAL)";
-//                    stmt.executeUpdate(sql);
-//                    stmt.close();
-//                    myConn.close();
                 } catch ( Exception e ) {
                     System.err.println( e.getClass().getName()+": "+ e.getMessage() );
                     System.exit(0);

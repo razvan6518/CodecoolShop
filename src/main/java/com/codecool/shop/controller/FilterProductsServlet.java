@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class FilterProductsServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         ProductDao productDao = ProductDaoMem.getInstance();

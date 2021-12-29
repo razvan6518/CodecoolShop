@@ -36,14 +36,16 @@ function createCard(prod, quantity){
                     <h4 class="card-title">${prod['name']}</h4>
                     <p class="card-text">${prod['description']}</p>
                 </div>
-                <div class="card-body">
+                <div class="card-header">
                     <div class="card-text">
-                        <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
+                        <p class="lead">Price: ${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                            <label for="quantity">quantity</label>
-                            <input type="hidden" id="custId" name="id" value="${prod['id']}">
-                            <input name="quantity" id="${prod['id']}" class="form-control" type="text" value="${quantity}" oninput="changeCart(${prod['id']})"/>
+                        <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                            <label for="quantity" class="label-quantity">quantity</label>
+                            <input size="1" name="quantity" id="${prod['id']}" class="form-control" type="number" value="${quantity}" oninput="changeCart(${prod['id']})" autocomplete="off"/>
+                        </div>
+                        <hr>
                         <strong>subtotal price: ${subtotal}</strong>
                     </div>
                 </div>

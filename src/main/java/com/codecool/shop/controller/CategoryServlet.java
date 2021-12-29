@@ -27,7 +27,7 @@ import java.util.List;
 public class CategoryServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -36,11 +36,7 @@ public class CategoryServlet extends HttpServlet {
 
         CategoryService categoryService = new CategoryService(categoryDao, productDao);
         HashMap<String, Integer> categoriesWithNrOfItems = categoryService.getAllCategoriesWithNrOfItems();
-//        List<String> categories = new ArrayList<>(categoriesWithNrOfItems.keySet());
         List<Category> categories = categoryService.getAllCategories();
-
-//        List<Product> productsList = productDao.getBy(categoryDao.find(Integer.parseInt(request.getParameter("id"))));
-//        Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Category.class, new CategorySerialization()).serializeNulls().create();
         PrintWriter out = response.getWriter();

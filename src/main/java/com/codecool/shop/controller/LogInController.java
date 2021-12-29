@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LogInController extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         UserDao dao = new UserDaoPostgreSQL();

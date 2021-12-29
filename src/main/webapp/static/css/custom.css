@@ -41,6 +41,14 @@
     100% {font-size: 20px;}
 }
 
+.label-quantity {
+    /* Other styling... */
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+}
+
 .glyphicon {
     margin-right:5px;
 }

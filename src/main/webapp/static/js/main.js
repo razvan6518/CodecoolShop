@@ -1,30 +1,6 @@
 let content = document.querySelector("#products");
-// const categories = document.querySelector("#categories");
-// const suppliers = document.querySelector("#suppliers");
-
-// for (let i=0; i<categories.children.length; i++){
-//     categories.children[i].addEventListener("click", async evt => {
-//         const values = await getValues(categories.children[i].getAttribute("value"), "products");
-//         await addCards(values, categories.children[i].innerText);
-//     })
-// }
-//
-// for (let i=0; i<suppliers.children.length; i++){
-//     suppliers.children[i].addEventListener("click", async evt => {
-//         const values = await getValues(suppliers.children[i].getAttribute("value"), "suppliers");
-//         await addCards(values, suppliers.children[i].innerText);
-//     })
-// }
-
-// async function getValues(id, endpoint) {
-//     const response = await fetch("/" + endpoint + "?id=" + id);
-//     const values = await response.json();
-//     return values;
-// }
-
 
 makeFilter();
-
 
 async function addCards(values, title) {
     document.querySelector("#title").innerHTML = `<strong>${title}</strong>`;
@@ -93,7 +69,6 @@ async function makeFilter(){
     const categories = await getCategories();
     const suppliers = await getSuppliers();
     let categoryFilter = document.querySelector("#categoryFilter");
-    console.log(categoryFilter);
     categoryFilter.innerHTML += `<div id="categoryFilters" class="text-white"><h3>Categories:</h3></div>`
     categories.forEach(category => {
         document.querySelector("#categoryFilters").innerHTML +=
@@ -153,13 +128,12 @@ function w2_close() {
     document.getElementById("main").style.marginRight = "0%";
     document.getElementById("rightMenu").style.display = "none";
     document.getElementById("openCartMenu").style.display = "inline-block";
-    document.getElementById("lblCartCount").style.display = "inline-block";
+    if (parseInt(document.getElementById("lblCartCount").innerText) > 0)
+        document.getElementById("lblCartCount").style.display = "inline-block";
 }
 
 function start() {
     document.getElementById('lblCartCount').classList.remove("count-items-anim");
     document.getElementById('lblCartCount').offsetWidth;
     document.getElementById('lblCartCount').classList.add("count-items-anim");
-    // document.getElementById('lblCartCount').style.animation = "addItemAnimation forward";
-    // document.getElementById('earthlogo').style.animation = "anim2 2s 2s forward";
 }
