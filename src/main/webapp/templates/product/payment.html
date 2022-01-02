@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Cart</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
+    <script type="text/javascript" th:src="@{/static/js/payment.js}" defer></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Codecool Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<!-- Modal -->
+<!--<div class="modal fade" id="myModal" role="dialog" style="width:100%">-->
+<!--    <div class="modal-dialog  bg-dark" style="width:700px">-->
+<!--        <div class="modal-content  bg-dark" style="width:700px">-->
+<!--            <div class="modal-header">-->
+<!--                <h4 class="modal-title text-white">Checkout</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body text-white">-->
+<!--                    <div style="display:flex; flex-direction: column; justify-content: space-evenly">-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="fname" >First name:</label><br>-->
+<!--                            <input type="text" id="fname" name="fname" value=""><br>-->
+<!--                        </div>-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="lname">Last name:</label><br>-->
+<!--                            <input type="text" id="lname" name="lname" value=""><br>-->
+<!--                        </div>-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="email">Email:</label><br>-->
+<!--                            <input type="text" id="email" name="email" value=""><br>-->
+<!--                        </div>-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="phone_number">Phone number:</label><br>-->
+<!--                            <input type="number" id="phone_number" name="phone_number" value=""><br>-->
+<!--                        </div>-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="billing_address">Billing Address:</label><br>-->
+<!--                            <input type="text" id="billing_address" name="billing_address" value=""><br>-->
+<!--                        </div>-->
+<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
+<!--                            <label for="shipping_address">Shipping Address:</label><br>-->
+<!--                            <input type="text" id="shipping_address" name="shipping_address" value=""><br>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="validateData()">Go to Payment</button>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+
+<div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>

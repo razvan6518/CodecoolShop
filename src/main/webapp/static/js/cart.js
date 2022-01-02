@@ -62,3 +62,30 @@ async function changeCart(id){
     xhttp.send();
     start();
 }
+
+function validateData(){
+    const firstName = document.getElementById("fname").value;
+    const lastName = document.getElementById("lname").value;
+    const email = document.getElementById("email").value;
+    const phoneNumber = document.getElementById("phone_number").value;
+    const billingAddress = document.getElementById("billing_address").value;
+    const shippingAddress = document.getElementById("shipping_address").value;
+    if (checkData(firstName, lastName, email, phoneNumber, billingAddress, shippingAddress)){
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", `/add_orderData?fname=${firstName}&lname=${lastName}&email=${email}&phone_number=${phoneNumber}&billing_address=${billingAddress}&shipping_address=${shippingAddress}`);
+        xhttp.setRequestHeader("Content-type", "");
+        xhttp.send();
+        changeCheckButton();
+    }
+}
+
+function checkData(firstName, lastName, email, phoneNumber, billingAddress, shippingAddress){
+    return (firstName !== "" && lastName !== "" && email !== "" && phoneNumber !== "" && billingAddress !== "" && shippingAddress !== "")
+}
+
+function changeCheckButton(){
+    const checkoutButton = document.querySelector("#checkoutButton");
+    checkoutButton.innerHTML = `<form action="/payment" method="get">
+                                <input class="btn btn-success" type="submit" value="Go to Payment">
+                            </form>`;
+}

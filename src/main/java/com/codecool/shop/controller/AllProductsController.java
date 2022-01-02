@@ -52,8 +52,8 @@ public class AllProductsController extends HttpServlet {
         context.setVariable("products", products);
         context.setVariable("productsInCart", order.getNrOfProducts());
 
-        CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
-        categoryService.getAllCategoriesWithNrOfItems();
+//        CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
+//        categoryService.getAllCategoriesWithNrOfItems();
 
         engine.process("product/index.html", context, resp.getWriter());
     }

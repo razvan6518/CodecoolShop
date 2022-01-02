@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Order {
 
     private List<LineItem> items;
+    private OrderData orderData;
 
     private static Order instance = null;
 
@@ -48,5 +49,8 @@ public class Order {
         return  count;
     }
 
+    public void setOrderData(String firstName, String lastName, String email, String phoneNumber, String billingAddress, String shippingAddress) {
+        this.orderData = new OrderData(firstName, lastName, email, phoneNumber, billingAddress, shippingAddress);
+    }
 }
 
