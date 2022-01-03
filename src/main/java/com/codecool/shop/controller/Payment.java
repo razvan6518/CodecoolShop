@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @WebServlet(name = "Payment", urlPatterns = {"/payment"})
@@ -29,7 +31,10 @@ public class Payment extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-//        context.setVariable("category", "All products");
+        BigDecimal totalPrice = new BigDecimal("0");
+        for (LineItem item: productsList)
+            totalPrice = totalPrice.add(item.getItem().getDefaultPrice().multiply(BigDecimal.valueOf(item.getQuantity() * 1.0)));
+        context.setVariable("total_price", totalPrice);
 
         engine.process("product/payment.html", context, response.getWriter());
     }

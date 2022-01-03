@@ -39,7 +39,7 @@ public class FilterProductsServlet extends HttpServlet {
         SupplierDao supplierDao = SupplierDaoMem.getInstance();
 
         ProductService productService = new ProductService(productDao, categoryDao, supplierDao);
-        int maxPrice;
+        BigDecimal maxPrice;
         Set<Product> productsList;
         boolean categoryFilter = false;
         boolean supplierFilter = false;
@@ -65,12 +65,12 @@ public class FilterProductsServlet extends HttpServlet {
             if (supplierFilter){
                 productsList = productsFilteredBySuppliers;
             }
-            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
+            maxPrice = BigDecimal.valueOf(Double.parseDouble(request.getParameter("maxPrice")));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().compareTo(maxPrice) <= 0).collect(Collectors.toSet());
         }else{
             productsList = new HashSet<>(productService.getAllProducts());
-            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
+            maxPrice = BigDecimal.valueOf(Double.parseDouble(request.getParameter("maxPrice")));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().compareTo(maxPrice) <= 0).collect(Collectors.toSet());
         }
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();

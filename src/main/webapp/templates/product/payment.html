@@ -30,49 +30,8 @@
     </button>
 </nav>
 
-<!-- Modal -->
-<!--<div class="modal fade" id="myModal" role="dialog" style="width:100%">-->
-<!--    <div class="modal-dialog  bg-dark" style="width:700px">-->
-<!--        <div class="modal-content  bg-dark" style="width:700px">-->
-<!--            <div class="modal-header">-->
-<!--                <h4 class="modal-title text-white">Checkout</h4>-->
-<!--            </div>-->
-<!--            <div class="modal-body text-white">-->
-<!--                    <div style="display:flex; flex-direction: column; justify-content: space-evenly">-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="fname" >First name:</label><br>-->
-<!--                            <input type="text" id="fname" name="fname" value=""><br>-->
-<!--                        </div>-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="lname">Last name:</label><br>-->
-<!--                            <input type="text" id="lname" name="lname" value=""><br>-->
-<!--                        </div>-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="email">Email:</label><br>-->
-<!--                            <input type="text" id="email" name="email" value=""><br>-->
-<!--                        </div>-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="phone_number">Phone number:</label><br>-->
-<!--                            <input type="number" id="phone_number" name="phone_number" value=""><br>-->
-<!--                        </div>-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="billing_address">Billing Address:</label><br>-->
-<!--                            <input type="text" id="billing_address" name="billing_address" value=""><br>-->
-<!--                        </div>-->
-<!--                        <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">-->
-<!--                            <label for="shipping_address">Shipping Address:</label><br>-->
-<!--                            <input type="text" id="shipping_address" name="shipping_address" value=""><br>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="validateData()">Go to Payment</button>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--    </div>-->
-<!--</div>-->
+<h2 th:text='Total price ${total_price}'></h2>
+<h3>select Payment method: </h3>
 
 
 <div th:replace="footer.html :: copy"></div>
