@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.model.Category;
 import com.codecool.shop.model.User;
 import com.codecool.shop.placeholder.DbConnection;
 import org.apache.commons.codec.binary.Hex;
@@ -21,6 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoPostgreSQL implements UserDao {
+
+    private static UserDaoPostgreSQL instance = null;
+
+    public static UserDaoPostgreSQL getInstance() {
+        if (instance == null) {
+            instance = new UserDaoPostgreSQL();
+        }
+        return instance;
+    }
+
+    private UserDaoPostgreSQL() {
+    }
 
     @Override
     public void create(String userName, String userEmail, String userPassword) {

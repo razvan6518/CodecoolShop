@@ -19,12 +19,12 @@ public class LogInController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        UserDao dao = new UserDaoPostgreSQL();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        dao.getUserByPasswordAndName(password, username);
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        UserDao dao = new UserDaoPostgreSQL();
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        dao.getUserByPasswordAndName(password, username);
     }
 
     @Override
