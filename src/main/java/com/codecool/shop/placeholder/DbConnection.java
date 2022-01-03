@@ -23,7 +23,6 @@ public class DbConnection {
         try {
             props.load(new FileInputStream("src/main/resources/connection.properties"));
             String url = props.getProperty("url");
-            String database = props.getProperty("database");
             String user = props.getProperty("user");
             String password = props.getProperty("password");
             String dao = props.getProperty("dao");

@@ -5,12 +5,10 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.Supplier;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class ProductSerialization implements JsonSerializer<Product>, JsonDeserializer<Product> {
 
