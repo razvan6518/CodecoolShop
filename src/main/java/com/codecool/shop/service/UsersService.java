@@ -1,7 +1,6 @@
 package com.codecool.shop.service;
 
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.model.User;
 
 public class UsersService {
 
@@ -13,5 +12,9 @@ public class UsersService {
 
     public void registerUser(String name, String email, String password){
         userDao.create(name, email, password);
+    }
+
+    public void loginUser(String email, String password){
+        userDao.loginUser(email, password);
     }
 }

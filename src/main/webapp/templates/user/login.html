@@ -5,9 +5,9 @@
     <title>Log In</title>
 </head>
 <body>
-<form action="/login" method="post">
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" th:value="${name}"><br>
+<form action="/user/login" method="post">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" th:value="${email}"><br>
     <label for="password">Password:</label><br>
     <input type="text" id="password" name="password"><br>
     <input type="submit" value="login">
