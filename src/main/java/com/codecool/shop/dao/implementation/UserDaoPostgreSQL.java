@@ -29,8 +29,8 @@ public class UserDaoPostgreSQL implements UserDao {
         String hashedPassword = passwordAuthentication.hash(userPassword.toCharArray());
         try {
             Statement statement = myConn.createStatement();
-            String s = "INSERT INTO codecoolshop.public.users (name, email, password) " +
-                        "VALUES ('" + userName + "', '" + userEmail + "', '" + hashedPassword + "')";
+            String s = "INSERT INTO codecoolshop.public.users (name, email, password, customer_id) " +
+                        "VALUES ('" + userName + "', '" + userEmail + "', '" + hashedPassword + "', '" + customerId + "')";
             statement.executeUpdate(s);
             statement.close();
         } catch (SQLException e) {

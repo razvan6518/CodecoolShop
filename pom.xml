@@ -62,12 +62,11 @@
             <version>${version.javax.servlet.api}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- See comment at jetty plugin -->
-        <!-- <dependency> -->
-        <!--   <groupId>org.eclipse.jetty</groupId> -->
-        <!--   <artifactId>jetty-io</artifactId> -->
-        <!--   <version>${jetty.version}</version> -->
-        <!-- </dependency> -->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>4.2.0</version>
+        </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
