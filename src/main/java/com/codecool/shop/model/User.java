@@ -7,7 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String ewalletReferenceId;
+    private String customerId;
     private String phoneNumber;
     private String address;
     private String city;
@@ -19,9 +19,19 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.ewalletReferenceId = UUID.randomUUID().toString().replaceAll("[^0-9]", "").substring(0, 8);
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
 }

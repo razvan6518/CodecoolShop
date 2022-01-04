@@ -1,6 +1,7 @@
 package com.codecool.shop.service;
 
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.model.User;
 import com.codecool.shop.util.StripeApi;
 import com.stripe.model.Customer;
 
@@ -19,8 +20,8 @@ public class UsersService {
         }
     }
 
-    public void loginUser(String email, String password){
-        userDao.loginUser(email, password);
+    public User loginUser(String email, String password){
+        return userDao.loginUser(email, password);
     }
 
     private Customer createCustomer(){

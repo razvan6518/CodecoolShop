@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.model.User;
 import com.codecool.shop.placeholder.DbConnection;
 import com.codecool.shop.util.PasswordAuthentication;
 import java.sql.Connection;
@@ -39,23 +40,26 @@ public class UserDaoPostgreSQL implements UserDao {
     }
 
     @Override
-    public void loginUser(String email, String enteredPassword){
+    public User loginUser(String email, String enteredPassword){
         Connection myConn = DbConnection.getInstance().getMyConn();
         try {
             Statement statement = myConn.createStatement();
-            String s = "SELECT * FROM codecoolshop.public.users WHERE email = '" + email + "'";
-            ResultSet resultSet = statement.executeQuery(s);
+            String query = "SELECT * FROM codecoolshop.public.users WHERE email = '" + email + "'";
+            ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()){
                 String hashPass = resultSet.getString("password");
                 PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
                 if (passwordAuthentication.authenticate(enteredPassword.toCharArray(), hashPass)){
-                    System.out.println("ok");
+                    User user = new User(resultSet.getString("name"), "", resultSet.getString("email"), "", "");
+                    user.setCustomerId(resultSet.getString("customer_id"));
+                    return user;
                 }
             }
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
