@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
-            <version>4.2.0</version>
+            <version>20.94.0</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
