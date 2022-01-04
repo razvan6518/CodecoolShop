@@ -1,4 +1,4 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.user;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.UserDaoPostgreSQL;
@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "UsersController", urlPatterns = {"/user", "/user/login", "/user/logout"})
-public class UsersController extends HttpServlet {
+// TODO: Refactor !!!
+
+@WebServlet(name = "UserController", urlPatterns = {"/user", "/user/login", "/user/logout"})
+public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

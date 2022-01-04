@@ -2,7 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.User;
-import com.codecool.shop.placeholder.DbConnection;
+import com.codecool.shop.util.DbConnection;
 import com.codecool.shop.util.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.Optional;
 
 public class UserDaoPostgreSQL implements UserDao {
+
+    // TODO: Refactor !!!
 
     private static UserDaoPostgreSQL instance = null;
 

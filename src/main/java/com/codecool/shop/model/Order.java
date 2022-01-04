@@ -49,8 +49,8 @@ public class Order {
         return  count;
     }
 
-    public void setOrderData(String firstName, String lastName, String email, String phoneNumber, String billingAddress, String shippingAddress) {
-        this.orderData = new OrderData(firstName, lastName, email, phoneNumber, billingAddress, shippingAddress);
+    public void setOrderData(OrderData orderData) {
+        this.orderData = orderData;
     }
 }
 

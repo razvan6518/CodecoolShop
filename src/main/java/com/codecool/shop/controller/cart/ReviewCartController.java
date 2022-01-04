@@ -1,4 +1,4 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.cart;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Order;
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart"})
-public class CartController extends HttpServlet {
+public class ReviewCartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

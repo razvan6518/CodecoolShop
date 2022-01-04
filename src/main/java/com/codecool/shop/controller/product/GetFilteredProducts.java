@@ -1,8 +1,5 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.product;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -23,22 +20,26 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "ProductsServlet", urlPatterns = {"/filter_products"})
-public class FilterProductsServlet extends HttpServlet {
+@WebServlet(name = "GetFilteredProducts", urlPatterns = {"/filter_products"})
+public class GetFilteredProducts extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        ProductDao productDao = ProductDaoMem.getInstance();
-        ProductCategoryDao categoryDao = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDao = SupplierDaoMem.getInstance();
 
-        ProductService productService = new ProductService(productDao, categoryDao, supplierDao);
+        ProductService productService = new ProductService(
+                ProductDaoMem.getInstance(),
+                ProductCategoryDaoMem.getInstance(),
+                SupplierDaoMem.getInstance()
+        );
+
         BigDecimal maxPrice;
         Set<Product> productsList;
         boolean categoryFilter = false;
         boolean supplierFilter = false;
+
+        //TODO: Refactor !!!
         if (!request.getParameter("by").equals("")){
             productsList = new HashSet<>();
             String[] filters = request.getParameter("by").split(",");

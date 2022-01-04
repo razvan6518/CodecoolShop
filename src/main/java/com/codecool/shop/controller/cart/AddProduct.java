@@ -1,27 +1,27 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.cart;
 
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.service.CartService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProductAdd", urlPatterns = {"/add"})
-public class ProductAdd extends HttpServlet {
+@WebServlet(name = "AddProduct", urlPatterns = {"/add"})
+public class AddProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        ProductDao productDao = ProductDaoMem.getInstance();
-        Product toBuy = productDao.find(Integer.parseInt(request.getParameter("id")));
-        Order order = Order.getInstance();
-        order.addProduct(toBuy);
+        CartService cartService = new CartService(ProductDaoMem.getInstance());
+        Product product = cartService.getProduct(Integer.parseInt(request.getParameter("id")));
+
+        Order.getInstance().addProduct(product);
     }
 
 }

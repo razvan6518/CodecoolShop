@@ -1,4 +1,4 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.cart;
 
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "Cart", urlPatterns = {"/get_cart"})
-public class Cart extends HttpServlet {
+@WebServlet(name = "GetCart", urlPatterns = {"/get_cart"})
+public class GetCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

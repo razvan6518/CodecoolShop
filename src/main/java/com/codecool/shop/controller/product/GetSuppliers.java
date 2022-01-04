@@ -1,6 +1,5 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.product;
 
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.serialization.SupplierSerialization;
@@ -16,17 +15,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "SuppliersServlet", urlPatterns = {"/suppliers"})
-public class SuppliersServlet extends HttpServlet {
+@WebServlet(name = "GetSuppliers", urlPatterns = {"/suppliers"})
+public class GetSuppliers extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        SupplierDao supplierDao = SupplierDaoMem.getInstance();
-
-        SupplierService supplierService = new SupplierService(supplierDao);
+        SupplierService supplierService = new SupplierService(SupplierDaoMem.getInstance());
         List<Supplier> suppliers = supplierService.getAllSuppliers();
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Supplier.class, new SupplierSerialization()).serializeNulls().create();

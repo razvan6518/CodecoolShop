@@ -1,4 +1,4 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.controller.order;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.LineItem;
@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+
+// TODO: Refactor !!!
 
 @WebServlet(name = "Payment", urlPatterns = {"/payment"})
 public class Payment extends HttpServlet {
