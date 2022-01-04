@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 
 public class UserDaoPostgreSQL implements UserDao {
 
@@ -22,7 +23,7 @@ public class UserDaoPostgreSQL implements UserDao {
     }
 
     @Override
-    public void create(String userName, String userEmail, String userPassword) {
+    public void create(String userName, String userEmail, String userPassword, String customerId) {
         Connection myConn = DbConnection.getInstance().getMyConn();
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
         String hashedPassword = passwordAuthentication.hash(userPassword.toCharArray());
@@ -55,5 +56,19 @@ public class UserDaoPostgreSQL implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Optional<Boolean> checkIfEmailExist(String email) {
+        Connection myConn = DbConnection.getInstance().getMyConn();
+        try {
+            Statement statement = myConn.createStatement();
+            String s = "SELECT * FROM codecoolshop.public.users WHERE email = '" + email + "'";
+            ResultSet resultSet = statement.executeQuery(s);
+            return Optional.of((resultSet.next()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 }
