@@ -7,17 +7,17 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.service.CategoryService;
+import com.codecool.shop.model.User;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +52,10 @@ public class AllProductsController extends HttpServlet {
         context.setVariable("products", products);
         context.setVariable("productsInCart", order.getNrOfProducts());
 
-        CategoryService categoryService = new CategoryService(productCategoryDataStore, productDataStore);
-        categoryService.getAllCategoriesWithNrOfItems();
+        HttpSession session = req.getSession();
+        User loggedUser = (User) session.getAttribute("user");
 
+        context.setVariable("user", loggedUser);
         engine.process("product/index.html", context, resp.getWriter());
     }
 

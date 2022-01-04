@@ -5,14 +5,13 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "CartChange", urlPatterns = {"/change_cart"})
+@WebServlet(name = "CartChange", urlPatterns = {"/change_cart", "/add_orderData"})
 public class CartChange extends HttpServlet {
 
     @Override
@@ -20,10 +19,21 @@ public class CartChange extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        ProductDao productDao = ProductDaoMem.getInstance();
-        Product product = productDao.find(Integer.parseInt(request.getParameter("id")));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
         Order order = Order.getInstance();
-        order.setProductQuantity(product, quantity);
+
+        if (request.getServletPath().equals("/change_cart")){
+            ProductDao productDao = ProductDaoMem.getInstance();
+            Product product = productDao.find(Integer.parseInt(request.getParameter("id")));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            order.setProductQuantity(product, quantity);
+        }
+        if (request.getServletPath().equals("/add_orderData")){
+            order.setOrderData(request.getParameter("fname"),
+                    request.getParameter("lname"),
+                    request.getParameter("email"),
+                    request.getParameter("phone_number"),
+                    request.getParameter("billing_address"),
+                    request.getParameter("shipping_address"));
+        }
     }
 }

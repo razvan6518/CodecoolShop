@@ -3,32 +3,35 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.User;
 import com.codecool.shop.placeholder.DbConnection;
-import org.apache.commons.codec.binary.Hex;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
+import com.codecool.shop.util.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 public class UserDaoPostgreSQL implements UserDao {
 
+    private static UserDaoPostgreSQL instance = null;
+
+    public static UserDaoPostgreSQL getInstance() {
+        if (instance == null) 
+            instance = new UserDaoPostgreSQL();
+        return instance;
+    }
+
+    private UserDaoPostgreSQL() {
+    }
+
     @Override
-    public void create(String userName, String userEmail, String userPassword) {
+    public void create(String userName, String userEmail, String userPassword, String customerId) {
         Connection myConn = DbConnection.getInstance().getMyConn();
-        String hashedPassword = Hex.encodeHexString(getHashedPassword(userPassword));
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+        String hashedPassword = passwordAuthentication.hash(userPassword.toCharArray());
         try {
             Statement statement = myConn.createStatement();
-            String s = "insert into codecoolshop.public.users (name, email, password) values ('" + userName + "', '" + userEmail + "', '" + hashedPassword + "')";
+            String s = "INSERT INTO codecoolshop.public.users (name, email, password, customer_id) " +
+                        "VALUES ('" + userName + "', '" + userEmail + "', '" + hashedPassword + "', '" + customerId + "')";
             statement.executeUpdate(s);
             statement.close();
         } catch (SQLException e) {
@@ -37,17 +40,20 @@ public class UserDaoPostgreSQL implements UserDao {
     }
 
     @Override
-    public User getUserByPasswordAndName(String password, String name) {
+    public User loginUser(String email, String enteredPassword){
         Connection myConn = DbConnection.getInstance().getMyConn();
-        String hashedPassword = Hex.encodeHexString(getHashedPassword(password));
         try {
             Statement statement = myConn.createStatement();
-            String query = "Select password from codecoolshop.public.users where name = '"+name+"'";
+            String query = "SELECT * FROM codecoolshop.public.users WHERE email = '" + email + "'";
             ResultSet resultSet = statement.executeQuery(query);
-            List<User> users = new ArrayList<>();
             if (resultSet.next()){
                 String hashPass = resultSet.getString("password");
-
+                PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+                if (passwordAuthentication.authenticate(enteredPassword.toCharArray(), hashPass)){
+                    User user = new User(resultSet.getString("name"), "", resultSet.getString("email"), "", "");
+                    user.setCustomerId(resultSet.getString("customer_id"));
+                    return user;
+                }
             }
             statement.close();
         } catch (SQLException e) {
@@ -56,36 +62,17 @@ public class UserDaoPostgreSQL implements UserDao {
         return null;
     }
 
-    private byte[] getHashedPassword(String password) {
-//        SecureRandom random = new SecureRandom();
-//        byte[] salt = new byte[16];
-//        random.nextBytes(salt);
-//        MessageDigest md = null;
-//        try {
-//            md = MessageDigest.getInstance("SHA-512");
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//        md.update(salt);
-//        byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-//        String string = new String(hashedPassword);
-
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-        SecretKeyFactory factory = null;
+    @Override
+    public Optional<Boolean> checkIfEmailExist(String email) {
+        Connection myConn = DbConnection.getInstance().getMyConn();
         try {
-            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        } catch (NoSuchAlgorithmException e) {
+            Statement statement = myConn.createStatement();
+            String s = "SELECT * FROM codecoolshop.public.users WHERE email = '" + email + "'";
+            ResultSet resultSet = statement.executeQuery(s);
+            return Optional.of((resultSet.next()));
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        byte[] hash = null;
-        try {
-            hash = factory.generateSecret(spec).getEncoded();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-        return hash;
+        return Optional.empty();
     }
 }

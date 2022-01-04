@@ -12,7 +12,6 @@ import com.codecool.shop.service.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,7 +35,7 @@ public class FilterProductsServlet extends HttpServlet {
         SupplierDao supplierDao = SupplierDaoMem.getInstance();
 
         ProductService productService = new ProductService(productDao, categoryDao, supplierDao);
-        int maxPrice;
+        BigDecimal maxPrice;
         Set<Product> productsList;
         boolean categoryFilter = false;
         boolean supplierFilter = false;
@@ -65,12 +61,12 @@ public class FilterProductsServlet extends HttpServlet {
             if (supplierFilter){
                 productsList = productsFilteredBySuppliers;
             }
-            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
+            maxPrice = BigDecimal.valueOf(Double.parseDouble(request.getParameter("maxPrice")));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().compareTo(maxPrice) <= 0).collect(Collectors.toSet());
         }else{
             productsList = new HashSet<>(productService.getAllProducts());
-            maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-            productsList = productsList.stream().filter(product -> product.getDefaultPrice().setScale(0, RoundingMode.UP).intValueExact() < maxPrice).collect(Collectors.toSet());
+            maxPrice = BigDecimal.valueOf(Double.parseDouble(request.getParameter("maxPrice")));
+            productsList = productsList.stream().filter(product -> product.getDefaultPrice().compareTo(maxPrice) <= 0).collect(Collectors.toSet());
         }
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductSerialization()).serializeNulls().create();

@@ -37,7 +37,7 @@ function addToCart(id) {
     let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
     document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
     document.getElementById("lblCartCount").style.display = "inline-block";
-    start();
+    startItemCounterAnimation();
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `/add?id=${id}`);
     xhttp.setRequestHeader("Content-type", "");
@@ -49,20 +49,17 @@ leftFilters.innerHTML += `<div id="categoryFilter"></div>`;
 
 async function getCategories() {
     const response = await fetch("/categories");
-    const values = await response.json();
-    return values;
+    return await response.json();
 }
 
 async function getSuppliers() {
     const response = await fetch("/suppliers");
-    const values = await response.json();
-    return values;
+    return await response.json();
 }
 
 async function getFilteredProducts(filterBy) {
     const response = await fetch("/filter_products?by="+filterBy);
-    const values = await response.json();
-    return values;
+    return await response.json();
 }
 
 async function makeFilter(){
@@ -101,8 +98,7 @@ async function updatePage(){
 }
 
 function updateSelectedMaxPrice(){
-    let maxPrice = document.querySelector("#price-max").value;
-    document.querySelector("#priceMax").innerHTML = maxPrice;
+    document.querySelector("#priceMax").innerHTML = document.querySelector("#price-max").value;
 }
 
 function w3_open() {
@@ -132,7 +128,7 @@ function w2_close() {
         document.getElementById("lblCartCount").style.display = "inline-block";
 }
 
-function start() {
+function startItemCounterAnimation() {
     document.getElementById('lblCartCount').classList.remove("count-items-anim");
     document.getElementById('lblCartCount').offsetWidth;
     document.getElementById('lblCartCount').classList.add("count-items-anim");

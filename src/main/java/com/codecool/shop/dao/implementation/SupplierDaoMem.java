@@ -33,11 +33,6 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
-    public void remove(int id) {
-        data.remove(find(id));
-    }
-
-    @Override
     public List<Supplier> getAll() {
         return data;
     }
