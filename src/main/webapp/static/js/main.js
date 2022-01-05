@@ -36,8 +36,10 @@ function addToCart(id) {
     let itemsInCartCounter = document.querySelector("#lblCartCount");
     let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
     document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
-    document.getElementById("lblCartCount").style.display = "inline-block";
-    startItemCounterAnimation();
+    if (document.getElementById("main").style.marginRight < "14%"){
+        document.getElementById("lblCartCount").style.display = "inline-block";
+        startAnimation();
+    }
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `/add?id=${id}`);
     xhttp.setRequestHeader("Content-type", "");
@@ -128,7 +130,7 @@ function w2_close() {
         document.getElementById("lblCartCount").style.display = "inline-block";
 }
 
-function startItemCounterAnimation() {
+function startAnimation() {
     document.getElementById('lblCartCount').classList.remove("count-items-anim");
     document.getElementById('lblCartCount').offsetWidth;
     document.getElementById('lblCartCount').classList.add("count-items-anim");
