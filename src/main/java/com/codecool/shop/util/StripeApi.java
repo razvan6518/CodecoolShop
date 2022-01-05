@@ -25,7 +25,7 @@ public class StripeApi {
         return customer;
     }
 
-    public static PaymentIntent createPaymentIntent(int amount, String currency){
+    public static PaymentIntent createPaymentIntent(int amount, String currency, String customerId){
         Stripe.apiKey = "sk_test_51KE7W8G8Vd74GxWdplerbvkihsXMkxu4Vab7z1rnsvsYW822n5mhn08r9dqpFi6FGJNdpmpeRqxAaEjGg7w0C3qY00tZ1NyFGX";
 
         List<Object> paymentMethodTypes =
@@ -34,6 +34,7 @@ public class StripeApi {
         Map<String, Object> params = new HashMap<>();
         params.put("amount", amount);
         params.put("currency", currency);
+        params.put("customer", customerId);
         params.put(
                 "payment_method_types",
                 paymentMethodTypes
@@ -47,7 +48,7 @@ public class StripeApi {
         return paymentIntent;
     }
 
-    public static PaymentMethod createPaymentMethod(String number, int expMonth, int expYear, String cvc){
+    public static String createPaymentMethod(String number, int expMonth, int expYear, String cvc){
         Stripe.apiKey = "sk_test_51KE7W8G8Vd74GxWdplerbvkihsXMkxu4Vab7z1rnsvsYW822n5mhn08r9dqpFi6FGJNdpmpeRqxAaEjGg7w0C3qY00tZ1NyFGX";
 
         Map<String, Object> card = new HashMap<>();
@@ -64,12 +65,11 @@ public class StripeApi {
         } catch (StripeException e) {
             e.printStackTrace();
         }
-        return paymentMethod;
+        return paymentMethod.getId();
     }
 
     public static PaymentIntent tryToConfirmPayment(PaymentIntent paymentIntent, String paymentMethodId){
         Stripe.apiKey = "sk_test_51KE7W8G8Vd74GxWdplerbvkihsXMkxu4Vab7z1rnsvsYW822n5mhn08r9dqpFi6FGJNdpmpeRqxAaEjGg7w0C3qY00tZ1NyFGX";
-
         Map<String, Object> params = new HashMap<>();
         params.put("payment_method", paymentMethodId);
         PaymentIntent updatedPaymentIntent = null;
@@ -81,4 +81,37 @@ public class StripeApi {
         return updatedPaymentIntent;
     }
 
+    public static List<PaymentMethod> getPaymentMethodsByIds(List<String> paymentMethodsIds){
+        Stripe.apiKey = "sk_test_51KE7W8G8Vd74GxWdplerbvkihsXMkxu4Vab7z1rnsvsYW822n5mhn08r9dqpFi6FGJNdpmpeRqxAaEjGg7w0C3qY00tZ1NyFGX";
+        List<PaymentMethod> result = new ArrayList<>();
+        for (String paymentMethodId: paymentMethodsIds){
+            try {
+                result.add(PaymentMethod.retrieve(paymentMethodId));
+            } catch (StripeException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static PaymentMethod attachesPaymentMethodToCustomer(String customerId, String paymentMethodId){
+        Stripe.apiKey = "sk_test_51KE7W8G8Vd74GxWdplerbvkihsXMkxu4Vab7z1rnsvsYW822n5mhn08r9dqpFi6FGJNdpmpeRqxAaEjGg7w0C3qY00tZ1NyFGX";
+
+        PaymentMethod paymentMethod = null;
+        try {
+            paymentMethod = PaymentMethod.retrieve(paymentMethodId);
+        } catch (StripeException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("customer", customerId);
+        PaymentMethod updatedPaymentMethod = null;
+        try {
+            assert paymentMethod != null;
+            updatedPaymentMethod = paymentMethod.attach(params);
+        } catch (StripeException e) {
+            e.printStackTrace();
+        }
+        return updatedPaymentMethod;
+    }
 }

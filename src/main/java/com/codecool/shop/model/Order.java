@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +48,13 @@ public class Order {
             count += item.getQuantity();
         }
         return  count;
+    }
+
+    public BigDecimal getTotalCartPrice(){
+        BigDecimal totalPrice = new BigDecimal("0");
+        for (LineItem item: this.items)
+            totalPrice = totalPrice.add(item.getItem().getDefaultPrice().multiply(BigDecimal.valueOf(item.getQuantity() * 1.0)));
+        return totalPrice;
     }
 
     public void setOrderData(OrderData orderData) {

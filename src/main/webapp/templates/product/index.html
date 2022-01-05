@@ -58,8 +58,8 @@
             <li class="nav-item dropdown">
                 <div id="myAccount">
                     <button id="navbarDropdownMenuLink" class="btn-dark btn-lg nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span th:if="${session.user==null}">My account</span>
-                        <span th:if="${session.user!=null}">Hi, <span th:text="${session.user.getFirstName()}"></span></span>
+                        <span th:if="${session.user==null}" id="navAccount" class="off">My account</span>
+                        <span th:if="${session.user!=null}" class="logged">Hi, <span th:text="${session.user.getFirstName()}"></span></span>
                     </button>
                     <div id="categories" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <div th:if="${session.user==null}">
@@ -67,6 +67,8 @@
                             <a class="dropdown-item" href="/user/login">Log In</a>
                         </div>
                         <div th:if="${session.user!=null}">
+                            <a class="dropdown-item" href="/add_card">Add card</a>
+                            <hr>
                             <a class="dropdown-item" href="/user/logout">Log Out</a>
                         </div>
                     </div>

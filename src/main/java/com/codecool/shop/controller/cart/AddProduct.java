@@ -21,7 +21,9 @@ public class AddProduct extends HttpServlet {
         CartService cartService = new CartService(ProductDaoMem.getInstance());
         Product product = cartService.getProduct(Integer.parseInt(request.getParameter("id")));
 
-        Order.getInstance().addProduct(product);
+        if (request.getSession().getAttribute("user") != null){
+            Order.getInstance().addProduct(product);
+        }
     }
 
 }

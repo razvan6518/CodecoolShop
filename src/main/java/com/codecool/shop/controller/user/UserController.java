@@ -1,7 +1,7 @@
 package com.codecool.shop.controller.user;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.UserDaoPostgreSQL;
+import com.codecool.shop.dao.db.UserDaoJdbc;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.UsersService;
 import org.thymeleaf.TemplateEngine;
@@ -22,7 +22,7 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UsersService usersService = new UsersService(UserDaoPostgreSQL.getInstance());
+        UsersService usersService = new UsersService(UserDaoJdbc.getInstance());
         if (request.getServletPath().equals("/user")){
             String name = request.getParameter("name");
             String email = request.getParameter("email");
