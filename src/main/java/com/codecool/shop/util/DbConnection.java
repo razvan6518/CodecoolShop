@@ -1,4 +1,4 @@
-package com.codecool.shop.placeholder;
+package com.codecool.shop.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

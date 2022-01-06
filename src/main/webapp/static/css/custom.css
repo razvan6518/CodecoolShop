@@ -6,6 +6,14 @@
     border-radius: 9px;
 }
 
+.logged{
+    color: limegreen;
+}
+
+.off{
+    color: #ffffff;
+}
+
 .label-warning[href],
 .badge-warning[href] {
     background-color: #c67605;

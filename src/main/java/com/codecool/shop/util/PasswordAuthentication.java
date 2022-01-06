@@ -14,15 +14,8 @@ import javax.crypto.spec.PBEKeySpec;
 
 public final class PasswordAuthentication
 {
-
-    /**
-     * Each token produced by this class uses this identifier as a prefix.
-     */
     public static final String ID = "$31$";
 
-    /**
-     * The minimum recommended cost, used by default
-     */
     public static final int DEFAULT_COST = 16;
 
     private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
@@ -40,11 +33,6 @@ public final class PasswordAuthentication
         this(DEFAULT_COST);
     }
 
-    /**
-     * Create a password manager with a specified cost
-     *
-     * @param cost the exponential computational cost of hashing a password, 0 to 30
-     */
     public PasswordAuthentication(int cost)
     {
         iterations(cost);

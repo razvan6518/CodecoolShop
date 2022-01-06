@@ -9,7 +9,7 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Category;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
-import com.codecool.shop.placeholder.DbConnection;
+import com.codecool.shop.util.DbConnection;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
