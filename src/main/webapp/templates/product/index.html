@@ -100,7 +100,8 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <button class="btn btn-success" type="button" th:onclick="'addToCart(\'' + ${prod.id} + '\');'">Add to cart</button>
+                        <button th:if="${session.user!=null}" class="btn btn-success" type="button" th:onclick="'addToCart(\'' + ${prod.id} + '\');'">Add to cart</button>
+                        <a th:if="${session.user==null}" href="/user/login" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>

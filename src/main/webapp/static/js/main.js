@@ -2,6 +2,10 @@ let content = document.querySelector("#products");
 
 makeFilter();
 
+let user = null;
+getUser().then(r => {});
+
+
 async function addCards(values, title) {
     document.querySelector("#title").innerHTML = `<strong>${title}</strong>`;
     content.innerHTML = "";
@@ -13,7 +17,8 @@ async function addCards(values, title) {
 function createCard(prod){
     const card = document.createElement('div');
     card.className = "col col-sm-12 col-md-6 col-lg-4";
-    card.innerHTML = `
+        if (user == null){
+            card.innerHTML = `
             <div class="card">
                 <img class="" src="/static/img/product_${prod['id']}.jpg" alt="" width="200" height="200"/>
                 <div class="card-header">
@@ -25,14 +30,32 @@ function createCard(prod){
                         <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
                     </div>
                     <div class="card-text">
-                    <button class="btn btn-success" type="button" onclick="addToCart(${prod['id']})">Add to cart</button>
+                        <a href="/user/login" class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>`;
+        }else{
+            card.innerHTML = `
+            <div class="card">
+                <img class="" src="/static/img/product_${prod['id']}.jpg" alt="" width="200" height="200"/>
+                <div class="card-header">
+                    <h4 class="card-title">${prod['name']}</h4>
+                    <p class="card-text">${prod['description']}</p>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <p class="lead">${prod['defaultPrice']} ${prod['currencyString']}</p>
+                    </div>
+                    <div class="card-text">
+                        <button th:if="${name!==""}" class="btn btn-success" type="button" onClick="addToCart(${prod['id']})">Add to cart</button>
+                    </div>
+                </div>
+            </div>`;
+        }
     return card;
 }
 
-function addToCart(id) {
+async function addToCart(id) {
     let itemsInCartCounter = document.querySelector("#lblCartCount");
     let newNrOfItemsInCart = parseInt(itemsInCartCounter.innerText)+1;
     document.querySelector("#lblCartCount").innerHTML = ` ${newNrOfItemsInCart} `;
@@ -48,6 +71,11 @@ function addToCart(id) {
 
 const leftFilters = document.querySelector("#leftMenuBody");
 leftFilters.innerHTML += `<div id="categoryFilter"></div>`;
+
+async function getUser() {
+    const response = await fetch("/get_user");
+    user = await response.json();
+}
 
 async function getCategories() {
     const response = await fetch("/categories");
