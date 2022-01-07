@@ -13,10 +13,11 @@ public class UsersService {
         this.userDao = userDao;
     }
 
-    public void registerUser(String name, String email, String password){
-        if (userDao.checkIfEmailExist(email).isPresent() && !userDao.checkIfEmailExist(email).get()){
+    public void registerUser(User user){
+        if (userDao.checkIfEmailExist(user.getEmail()).isPresent() && !userDao.checkIfEmailExist(user.getEmail()).get()){
             Customer customer = createCustomer();
-            userDao.create(name, email, password, customer.getId());
+            user.setCustomerId(customer.getId());
+            userDao.create(user);
         }
     }
 

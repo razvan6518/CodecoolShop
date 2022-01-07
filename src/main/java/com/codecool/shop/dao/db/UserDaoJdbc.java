@@ -31,14 +31,14 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public Integer create(String userName, String userEmail, String userPassword, String customerId) {
+    public Integer create(User user) {
         Connection myConn = DbConnection.getInstance().getMyConn();
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
-        String hashedPassword = passwordAuthentication.hash(userPassword.toCharArray());
+        String hashedPassword = passwordAuthentication.hash(user.getPassword().toCharArray());
         try {
             Statement statement = myConn.createStatement();
-            String query = "INSERT INTO codecoolshop.public.users (name, email, password, customer_id) " +
-                        "VALUES ('" + userName + "', '" + userEmail + "', '" + hashedPassword + "', '" + customerId + "')" +
+            String query = "INSERT INTO codecoolshop.public.users (first_name, last_name, email, phone_number, address, city, state, country, customer_id, password) " +
+                        "VALUES ('" + user.getFirstName() + "', '" + user.getLastName() + "', '" + user.getEmail() + "', '" + user.getPhoneNumber() + "', '" + user.getAddress() + "', '" + user.getCity() + "', '" + user.getState() + "', '" + user.getCountry() + "', '" + user.getCustomerId() + "', '" + hashedPassword + "')" +
                     "RETURNING id";
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next())
@@ -61,7 +61,16 @@ public class UserDaoJdbc implements UserDao {
                 String hashPass = resultSet.getString("password");
                 PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
                 if (passwordAuthentication.authenticate(enteredPassword.toCharArray(), hashPass)){
-                    User user = new User(resultSet.getString("name"), "", resultSet.getString("email"), "", "");
+                    User user = new User(resultSet.getString("first_name"),
+                            resultSet.getString("last_name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("phone_number"),
+                            resultSet.getString("address"),
+                            resultSet.getString("city"),
+                            resultSet.getString("state"),
+                            resultSet.getString("country"),
+                            resultSet.getString("password")
+                    );
                     user.setCustomerId(resultSet.getString("customer_id"));
                     user.setId(resultSet.getInt("id"));
                     return user;

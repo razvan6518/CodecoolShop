@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-    Integer create(String name, String email, String password, String customerId);
+    Integer create(User user);
     User loginUser(String email, String password);
     Optional<Boolean> checkIfEmailExist(String email);
     List<PaymentMethod> getPaymentMethods(int id);

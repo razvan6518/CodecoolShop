@@ -26,7 +26,7 @@
     </button>
 </nav>
 
-<!-- Modal -->
+<!-- Checkout Modal -->
 <div class="modal fade" id="myModal" role="dialog" style="width:100%">
     <div class="modal-dialog  bg-dark" style="width:700px">
         <div class="modal-content  bg-dark" style="width:700px">
@@ -37,27 +37,27 @@
                     <div style="display:flex; flex-direction: column; justify-content: space-evenly">
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="fname" >First name:</label><br>
-                            <input type="text" id="fname" name="fname" value=""><br>
+                            <input type="text" id="fname" name="fname" th:value="${session.user.getFirstName()}"><br>
                         </div>
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="lname">Last name:</label><br>
-                            <input type="text" id="lname" name="lname" value=""><br>
+                            <input type="text" id="lname" name="lname" th:value="${session.user.getLastName()}"><br>
                         </div>
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="email">Email:</label><br>
-                            <input type="text" id="email" name="email" value=""><br>
+                            <input type="text" id="email" name="email" th:value="${session.user.getEmail()}"><br>
                         </div>
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="phone_number">Phone number:</label><br>
-                            <input type="number" id="phone_number" name="phone_number" value=""><br>
+                            <input type="number" id="phone_number" name="phone_number" th:value="${session.user.getPhoneNumber()}"><br>
                         </div>
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="billing_address">Billing Address:</label><br>
-                            <input type="text" id="billing_address" name="billing_address" value=""><br>
+                            <input type="text" id="billing_address" name="billing_address" th:value="${session.user.getAddress()}"><br>
                         </div>
                         <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: flex-start">
                             <label for="shipping_address">Shipping Address:</label><br>
-                            <input type="text" id="shipping_address" name="shipping_address" value=""><br>
+                            <input type="text" id="shipping_address" name="shipping_address" th:value="${session.user.getAddress()}"><br>
                         </div>
                     </div>
             </div>

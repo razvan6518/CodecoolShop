@@ -24,11 +24,19 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UsersService usersService = new UsersService(UserDaoJdbc.getInstance());
         if (request.getServletPath().equals("/user")){
-            String name = request.getParameter("name");
+            String firstName = request.getParameter("first_name");
+            String lastName = request.getParameter("last_name");
+            String phoneNumber = request.getParameter("phone");
+            String address = request.getParameter("address");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String country = request.getParameter("country");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            usersService.registerUser(name, email, password);
+            User user = new User(firstName, lastName, email, phoneNumber, address, city, state, country, password);
+
+            usersService.registerUser(user);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
             WebContext context = new WebContext(request, response, request.getServletContext());
