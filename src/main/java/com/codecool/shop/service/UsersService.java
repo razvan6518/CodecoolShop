@@ -14,7 +14,7 @@ public class UsersService {
     }
 
     public void registerUser(User user){
-        if (userDao.checkIfEmailExist(user.getEmail()).isPresent() && !userDao.checkIfEmailExist(user.getEmail()).get()){
+        if (/*userDao.checkIfEmailExist(user.getEmail()).isPresent() && */!userDao.checkIfEmailExist(user.getEmail()).get()){
             Customer customer = createCustomer();
             user.setCustomerId(customer.getId());
             userDao.create(user);
